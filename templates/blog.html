@@ -1,0 +1,74 @@
+{% extends "_base.html" %}
+
+{% block title %}Home - Blog Spot{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto">
+        <div class="">
+            <h1 class="text-4xl font-bold mb-4">{{ blog_post.title }}</h1>
+            <p class="text-sm text-gray-600 my-4">{{ blog_post.created_at | date:"M d, Y" }}.</p>
+
+            {% for content in contents %}
+            <div class="mb-4 {{ content.content_type.type|lower }}">
+                {% if content.content_type.type == 'Paragraph' %}
+                    <h2 class="text-2xl font-bold mb-2">{{ content.data.header }}</h2>
+                    <p class="mb-4 paragraph_content">{{ content.data.text|safe }}</p>
+                {% elif content.content_type.type == 'Image' %}
+                    <img src="{{ content.data.url }}" alt="{{ content.data.caption }}" class="w-full h-auto mb-4">
+                    <p class="text-sm text-gray-600">{{ content.data.caption }}</p>
+                {% elif content.content_type.type == 'Code' %}
+                    <pre class="p-4 rounded mb-4"><code class="language-{{ content.data.language }}">{{ content.data.code|safe }}</code></pre>
+                {% elif content.content_type.type == 'Quote' %}
+                    <blockquote class="border-l-4 border-gray-500 pl-4 italic mb-4">{{ content.data.quote }}</blockquote>
+                    <cite class="block text-right text-gray-600">{{ content.data.author }}</cite>
+                {% elif content.content_type.type == 'Points' %}
+                    <ol class="custom-ol mb-4">
+                        {% for point in content.data.points %}
+                        <li><span class="custom-ol-content">{{ point }}</span></li>
+                        {% endfor %}
+                    </ol>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <script>
+        const paragraphs = document.querySelectorAll('.paragraph_content');
+        paragraphs.forEach((paragraph) => {
+            var innerHTML = paragraph.innerHTML;
+
+            // Regex patterns for URL links, text within backticks, and text within asterisks
+            var urlRegexPattern = /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g;
+            var backtickRegexPattern = /`([^`]+)`/g;
+            var asteriskRegexPattern = /\*([^*]+)\*/g;
+
+            // Replace URL links
+            var newHTML = innerHTML.replace(urlRegexPattern, function(match, p1, p2) {
+                console.log("Match:", match);
+                console.log("Display text:", p1);
+                console.log("URL:", p2);
+                return `<a href="${p2}" target="_blank" class="underline text-blue-900 text-sm">${p1}</a>`;
+            });
+
+            // Replace text within backticks
+            newHTML = newHTML.replace(backtickRegexPattern, function(match, p1) {
+                console.log("Backtick Match:", match);
+                console.log("Monospace text:", p1);
+                return `<span style="font-family: monospace;" class='bg-gray-300 '>${p1}</span>`;
+            });
+
+            // Replace text within asterisks
+            newHTML = newHTML.replace(asteriskRegexPattern, function(match, p1) {
+                console.log("Asterisk Match:", match);
+                console.log("Bold text:", p1);
+                return `<strong>${p1}</strong>`;
+            });
+
+            console.log(newHTML);  // For debugging
+            paragraph.innerHTML = newHTML;
+        });
+
+    </script>
+{% endblock %}

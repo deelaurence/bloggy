@@ -1,0 +1,70 @@
+{% extends "_base.html" %}
+
+{% block title %}Home - Blog Spot{% endblock %}
+
+{% block content %}
+<section class="mb-12">
+    <div class="flex flex-col gap-4 md:flex-row justify-between">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 md:mb-0">Build.Better</h2>
+        <p  href="#" class="text-lg">Hola! I'm <span class="italic">Odunayo.</span>  Welcome to my blog. These codes work on my machine, it should work on yours. In theory.</p>
+    </div>
+</section>
+
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="lg:col-span-2">
+        {% for post in posts|slice:":2" %}
+        <a href="{% url 'post' post.id %}">
+            <article class="mb-8">
+                <div class="relative h-96 overflow-hidden">
+                    <img src="{{ post.cover_image }}" alt="{{ post.title }}" class="w-full h-auto ">
+                    <div class="hero-banner absolute bottom-0 gap-2 flex flex-col left-0 font-bold min-h-1/2 w-full p-4 ">
+                        <div class="flex flex-col gap-4 ">
+                            <a href="{% url 'post' post.id %}" class="text-3xl leading-7 text-gray-300">{{ post.title }}</a>
+                            <div>
+                                <p class="text-3xl -mb-2 text-gray-300">{{ post.created_at|date:"M" }}</p>
+                                <p class="text-3xl text-gray-300">{{ post.created_at|date:"Y" }}</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between">
+                            <a href="{% url 'posts_category' post.category.id %}" class="text-3xl  text-gray-500 ">{{post.category}}</a>
+                            <img style="filter: invert(60%);" class="h-8 go-img self-end" src="https://cdn-icons-png.flaticon.com/128/3710/3710635.png" alt="arrow">
+                            <!-- <p class="text-lg text-gray-300 mt-2">Some plceholder</p> -->
+                        </div>
+                    </div> 
+                </div>
+                <!-- <h3 class="text-2xl md:text-3xl font-bold mt-4">{{ post.title }}</h3> -->
+            </article>
+        </a>
+        {% endfor %}
+    </div>
+
+    <aside class="space-y-8 relative">
+        {% if posts|length > 2 %}
+            {% with post=posts.2 %}
+            <div class="absolute bg-yellow-300 font-semibold text-2xl text-black flex justify-center items-center h-32 w-32">
+                Popular
+            </div>
+            <div class="glass-effect pt-16 backdrop-blur-lg p-6">
+                <h3 class="text-xl font-bold mb-4">{{ post.title }}</h3>
+                <p>{{ post.summary }}</p>
+                <a href="{% url 'post' post.id %}" class="underline mt-4 block">Read more &rarr;</a>
+            </div>
+            {% endwith %}
+        {% endif %}
+    
+        {% if posts|length > 3 %}
+            {% with post=posts.3 %}
+            <div class="glass-effect p-6">
+                <div class="text-xl flex font-bold mb-4">
+                    <p class="text-3xl -mb-2">{{ post.created_at|date:"M.d" }}.</p>
+                    <p class="text-3xl">{{ post.created_at|date:"Y" }}</p>
+                </div>
+                <img src="{{ post.cover_image }}" alt="Pick Image" class="w-full h-auto mb-4">
+                <a href="{% url 'post' post.id %}" class="underline">{{ post.title }} &rarr;</a>
+            </div>
+            {% endwith %}
+        {% endif %}
+    </aside>
+    
+</section>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "_base.html" %}
+
+{% block title %}Home - Blog Spot{% endblock %}
+
+{% block content %}
+<section class="mb-12">
+    <div class="flex flex-col justify-between ">
+        <h2 class="text-2xl md:text-5xl font-bold mb-4">{{current_category}}.</h2>
+    </div>
+</section>
+
+<section class="">
+    {% for post in posts %}
+    <article class="flex md:items-end flex-col md:flex-row gap-8 mb-24">
+        <div class="relative border  border-b-2 bg-red-200">
+            <a href="{% url 'post' post.id %}">
+            <div class="h-44 md:w-64">
+                <img src="{{ post.cover_image }}" alt="{{ post.title }}" class=" object-cover object-top h-full w-full  mb-4">
+            </div>
+            </a>
+            <div class="text-black shadow-lg font-semibold absolute bottom-0 left-0  glass-effect2 p-2">
+                <span class="text-xs ">{{ post.created_at|date:"M d, Y" }}</span>
+                <a href="{% url 'posts_category' post.category.id %}" class="text-xs">• <span class="underline">{{post.category}}</span></a>
+            </div>
+        </div>
+        <a href="{% url 'post' post.id %}" class=" max-w-[2/3]">
+            <h3 class=" text-2xl md:text-3xl font-bold">{{ post.title }}</h3>
+            <p class="text-lg mt-1">{{post.summary}}</p>
+        </a>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}
