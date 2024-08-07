@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Blog Spot{% endblock %}</title>
+    <meta name="description" content="{% block description %}Stay updated with the latest trends in JavaScript and Python. Weekly insights, tips, and tutorials for developers.{% endblock %}">
+
+    <meta property="og:title" content="{% block og_title %}Welcome - bloggy{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}A brief description of your page.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}https://www.yoursite.com/default-image.jpg{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}https://www.yoursite.com{% endblock %}">
     
+    
+
     <!-- Preload Fonts -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" as="style" onload="this.rel='stylesheet'">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,6 +24,8 @@
     
     <!-- Highlight.js CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css" rel="stylesheet">
+
+
     
     <style>
         /* Font Display Optimization */

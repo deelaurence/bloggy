@@ -1,6 +1,11 @@
 {% extends "_base.html" %}
 
-{% block title %}Home - Blog Spot{% endblock %}
+{% block title %}{{blog_post.title}}{% endblock %}
+{% block description %}{{blog_post.summary}}{% endblock %}
+{% block og_title %}{{blog_post.title}}{% endblock %}
+{% block og_description %}{{blog_post.summary}}{% endblock %}
+{% block og_image %}{{blog_post.cover_image}}{% endblock %}
+
 
 {% block content %}
     <div class="container mx-auto xl:px-44">
@@ -11,6 +16,7 @@
                 <p class="text-sm text-gray-600 my-4">{{ blog_post.created_at | date:"M d, Y" }}.</p>
             </div>
 
+            <img src="{{blog_post.cover_image}}" alt="">
             {% for content in contents %}
             <div class="mb-4 {{ content.content_type.type|lower }}">
                 
