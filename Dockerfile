@@ -29,4 +29,6 @@ RUN pip install gunicorn uvicorn
 
 
 # Command to run the application using Gunicorn with UvicornWorker
-CMD ["gunicorn", "_core.asgi:application", "--bind", "0.0.0.0:8080", "--worker-class", "uvicorn.workers.UvicornWorker"]
+# CMD ["gunicorn", "_core.asgi:application", "--bind", "0.0.0.0:8080", "--worker-class", "uvicorn.workers.UvicornWorker"]
+
+CMD ["gunicorn", "_core.asgi:application", "-k", "uvicorn.workers.UvicornWorker"]
