@@ -3,24 +3,43 @@
 {% block title %}Home - Blog Spot{% endblock %}
 
 {% block content %}
-    <div class="container mx-auto">
+    <div class="container mx-auto xl:px-44">
         <div class="">
             <h1 class="text-4xl font-bold mb-4">{{ blog_post.title }}</h1>
-            <p class="text-sm text-gray-600 my-4">{{ blog_post.created_at | date:"M d, Y" }}.</p>
+            <div class="flex gap-2 items-center">
+                <img class="h-4" src="https://cdn-icons-png.flaticon.com/128/833/833593.png" alt="date">
+                <p class="text-sm text-gray-600 my-4">{{ blog_post.created_at | date:"M d, Y" }}.</p>
+            </div>
 
             {% for content in contents %}
             <div class="mb-4 {{ content.content_type.type|lower }}">
+                
+                
                 {% if content.content_type.type == 'Paragraph' %}
-                    <h2 class="text-2xl font-bold mb-2">{{ content.data.header }}</h2>
-                    <p class="mb-4 paragraph_content">{{ content.data.text|safe }}</p>
+                    <h2 class="text-2xl font-bold mt-8 mb-2">{{ content.data.header }}</h2>
+                    <p class="mb-12 paragraph_content">{{ content.data.text|safe }}</p>
+                
+                
                 {% elif content.content_type.type == 'Image' %}
-                    <img src="{{ content.data.url }}" alt="{{ content.data.caption }}" class="w-full h-auto mb-4">
+                <div class="flex flex-col my-12 items-center overflow-hidden">
+                    <img class="w-full" src="{{ content.data.url }}" alt="{{ content.data.caption }}" >
                     <p class="text-sm text-gray-600">{{ content.data.caption }}</p>
+                </div>
+                
+                
                 {% elif content.content_type.type == 'Code' %}
-                    <pre class="p-4 rounded mb-4"><code class="language-{{ content.data.language }}">{{ content.data.code|safe }}</code></pre>
+                    <div class="flex mt-16 border-t border-l border-r bg-gray-300 rounded-tr-xl border-gray-400  p-2  items-center justify-between">
+                        <p class="text-sm capitalize ">{{content.data.language|safe}}</p>
+                        <button id="copy-btn-{{content.order}}" class="flex gap-2 text-sm items-center" onclick="copyCode('{{ content.order }}')">Copy code <img class="h-4" src="https://cdn-icons-png.flaticon.com/128/11940/11940163.png" alt="copy"> </button>
+                    </div>
+                    <pre class="p-4 text-base mb-12"><code id="codeBlock-{{content.order}}" class="language-{{ content.data.language }}">{{ content.data.code|safe }}</code></pre>
+                
+                
                 {% elif content.content_type.type == 'Quote' %}
                     <blockquote class="border-l-4 border-gray-500 pl-4 italic mb-4">{{ content.data.quote }}</blockquote>
-                    <cite class="block text-right text-gray-600">{{ content.data.author }}</cite>
+                    <cite class="block text-right text-gray-600">{{ content.data.author }}</cite>    
+                
+                
                 {% elif content.content_type.type == 'Points' %}
                     <ol class="custom-ol mb-4">
                         {% for point in content.data.points %}
@@ -35,7 +54,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
     <script>
-        const paragraphs = document.querySelectorAll('.paragraph_content');
+        const paragraphs = document.querySelectorAll('.paragraph_content,.custom-ol-content');
         paragraphs.forEach((paragraph) => {
             var innerHTML = paragraph.innerHTML;
 
@@ -46,29 +65,56 @@
 
             // Replace URL links
             var newHTML = innerHTML.replace(urlRegexPattern, function(match, p1, p2) {
-                console.log("Match:", match);
-                console.log("Display text:", p1);
-                console.log("URL:", p2);
-                return `<a href="${p2}" target="_blank" class="underline text-blue-900 text-sm">${p1}</a>`;
+                return `<a href="${p2}" target="_blank" class="underline text-blue-400 ">${p1}</a>`;
             });
 
             // Replace text within backticks
             newHTML = newHTML.replace(backtickRegexPattern, function(match, p1) {
-                console.log("Backtick Match:", match);
-                console.log("Monospace text:", p1);
                 return `<span style="font-family: monospace;" class='bg-gray-300 '>${p1}</span>`;
             });
 
             // Replace text within asterisks
             newHTML = newHTML.replace(asteriskRegexPattern, function(match, p1) {
-                console.log("Asterisk Match:", match);
-                console.log("Bold text:", p1);
                 return `<strong>${p1}</strong>`;
             });
 
-            console.log(newHTML);  // For debugging
             paragraph.innerHTML = newHTML;
         });
 
+
+        function copyCode(id) {
+            const button = document.querySelector('#copy-btn-'+id)
+            
+            // Get the code element
+            const codeBlock = document.getElementById(`codeBlock-${id}`);
+            
+            // Create a temporary textarea element to hold the code
+            const textarea = document.createElement('textarea');
+            textarea.value = codeBlock.textContent; // Set the value to the code content
+            document.body.appendChild(textarea); // Append it to the body
+
+            const beforeCopyHtml = `Copy code <img class="h-4" src="https://cdn-icons-png.flaticon.com/128/11940/11940163.png" alt="copy">`
+            const afterCopyHtml = `Code copied <img class="h-4" src="https://cdn-icons-png.flaticon.com/128/447/447147.png" alt="copied">`
+            
+            // Select the text in the textarea
+            textarea.select();
+            textarea.setSelectionRange(0, textarea.value.length); // For mobile devices
+
+            try {
+                // Copy the selected text to the clipboard
+                document.execCommand('copy');
+                button.innerHTML=afterCopyHtml
+
+                setTimeout(() => {
+                   button.innerHTML=beforeCopyHtml 
+                }, 3000);
+            } catch (err) {
+                alert('Failed to copy code.');
+            }
+
+            // Remove the temporary textarea
+            document.body.removeChild(textarea);
+        }
+    
     </script>
 {% endblock %}
