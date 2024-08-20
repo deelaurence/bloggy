@@ -33,7 +33,7 @@ class Content(models.Model):
 
     class Meta:
         unique_together = ('blog_post', 'order')
-        ordering = ['content_type', 'blog_post']  # Default ordering
+        ordering = ["-blog_post",'-order']  # Default ordering
 
     def __str__(self):
         return f'{self.content_type} for {self.blog_post} at order {self.order}'

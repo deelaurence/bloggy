@@ -1,0 +1,495 @@
+DELETE http://localhost:8000/add/
+Content-Type: application/json
+
+{
+  "blog_post_id": 1  
+}
+###
+
+POST http://localhost:8000/add/
+Content-Type: application/json
+
+{
+  "blog_post_id": 1,
+  "content": [
+    {
+      "content_type_id": 1,
+      "data": {
+        "header": "Automating Tasks with Bash Scripts: Making Life Easier, One Line at a Time!",
+        "text": "When I started programming, the very first time I heard Bash was the git-bash that I had access to when I installed git. <br<br>What’s a shell then? Why do we need it? Is Bash the only shell programmers use?<br><br> Modern operating systems, with their sleek graphical interfaces, make tasks like opening folders, renaming files, and organizing your desktop seem <em>easy-peasy.</em> Everything is just a few clicks away, turning complex operations into simple, intuitive actions. But back in the day, interacting with computers wasn’t so straightforward. You had to use command-line interfaces, which could be quite a challenge. <br><br>Think of Bash scripts as your magic wand for Linux. While GUIs handle tasks like dragging and dropping files or clicking buttons, Bash scripts let you automate those same tasks with just a few keystrokes. Imagine being able to perform complex operations, like batch renaming files or organizing directories, without lifting a finger. With Bash scripts, you can automate repetitive tasks, save tons of time, and impress your fellow developers with your newfound wizard-like efficiency!"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "header": "What is Bash?",
+        "text": "Before diving into the juicy bits, let’s quickly cover what Bash is. BAsh <em>(Bash Bourne Again SHell)</em> is a command-line interpreter that allows users to interact with the operating system by typing commands. Think of it as a way to tell your computer what to do using words rather than clicking around with a mouse."
+      }
+    },
+    {
+    "content_type_id": 1,
+    "data": {
+        "header": "What is a Shell?",
+        "text": "Let's start with the basics. A shell is a command-line interface that allows you to interact with your operating system by typing commands. It's like the intermediary between you and your computer's core functions. Think of it as a way to control your system through text commands rather than a graphical user interface."
+    }
+    },
+    {
+    "content_type_id": 1,
+    "data": {
+      "header": "What is a Bash Script?",
+      "text": "A Bash script is a text file containing a series of commands written in the Bash scripting language. Think of it as a recipe that tells your computer what actions to perform, executed in sequence by the Bash interpreter. It’s a handy way to automate tasks and manage system operations efficiently."
+    }
+  },
+  {
+    "content_type_id": 1,
+    "data": {
+      "header": "How Does a Bash Script Work?",
+      "text": "When you run a Bash script, the Bash interpreter reads the file line by line and executes each command in order. This allows you to automate complex tasks and batch operations with a single command. For example, you can create a script to back up files or set up system environments."
+    }
+  },
+  {
+    "content_type_id": 1,
+    "data": {
+      "header": "File Extension and Permissions",
+      "text": "Bash scripts typically use the `.sh` file extension, although it's not mandatory. To make a script executable, you need to set the appropriate permissions using [chmod](https://en.wikipedia.org/wiki/Chmod). For example, `chmod +x script.sh` grants execute permission to the script."
+    }
+  },
+  {
+    "content_type_id": 1,
+    "data": {
+      "header": "Why Use Bash Scripts?",
+      "text": "Bash scripts are great for automating repetitive tasks, managing system configurations, and performing batch operations. They help save time and reduce errors by allowing you to execute a series of commands with a single command. This can be incredibly useful for system administrators and developers alike."
+    }
+  },
+    {
+      "content_type_id": 1,
+      "data": {
+        "header": "Why Automate Tasks with Bash Scripts?",
+        "text": "Simply put, automation saves you time and reduces errors. Instead of manually repeating the same tasks <em>which no one likes</em>, Bash scripts allow you to bundle these commands into a single executable file. You can sit back, relax, and let your script do the heavy lifting!"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "header": "Getting Started with Your First Bash Script",
+        "text": "Creating a Bash script is as simple as opening your favorite text editor. The magic begins with the shebang: `#!/bin/bash`. This line tells your system to use Bash to interpret the script. Then, it's time to add some commands!"
+      }
+    },
+    {
+    "content_type_id": 1,
+    "data": {
+      "header": "Creating a Bash Script in VS Code",
+      "text": "Let’s walk through the steps to create a Bash script using Visual Studio Code <em>VS Code</em> a popular code editor."
+    }
+    },
+    {
+        "content_type_id": 1,
+        "data": {
+        "header": "Step 1: Open VS Code",
+        "text": "Launch Visual Studio Code on your computer. If you don’t have it installed, download and install it from the [official website](https://code.visualstudio.com/)."
+        }
+    },
+    {
+        "content_type_id": 1,
+        "data": {
+        "header": "Step 2: Create a New File",
+        "text": "In VS Code, go to the `File` menu and select `New File`, or use the shortcut `Ctrl+N` (Linux) or `Cmd+N` (Mac). This will open a new untitled file. <br><br> Name it anything you want and add a `.sh` file extension for example `myscript.sh` Then, put the following content inside the file"
+        }
+    },
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "#!/bin/bash\n\necho \"Hello, world!\"\n\nmkdir new_directory\n\ncd new_directory",
+        "language": "bash"
+      }
+    },
+    {
+    "content_type_id": 1,
+    "data": {
+        "header": "What is a Shebang?",
+        "text": "A shebang is the combination of the characters `#!` followed by the path to the interpreter that should be used to execute the script.<br><br> It is placed at the very top of the script file. <br><br> For example, `#!/bin/bash` tells the system to use the Bash shell to interpret the script. This simple line ensures that your script is executed with the correct interpreter, regardless of which shell or environment is running the script. <br><br> Think of it as the script's way of saying, 'Hey, use this tool to run me!' Without a shebang, the system might not know how to handle your script, leading to errors or unexpected behavior."
+    }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "header": "Step 3: Running Your Bash Script",
+        "text": "Once your script is written, give it execute permissions using `chmod +x yourscript.sh`, then run it by typing `./yourscript.sh` in your terminal. Voilà! Your script is now working its magic."
+      }
+    },
+    
+    {
+      "content_type_id": 1,
+      "data": {
+        "header": "Variables: Storing Data in Your Script",
+        "text": "Bash scripts can hold onto data using variables. For instance, `name=\"Odunayo\"` stores the name 'Odunayo'. You can then use it throughout your script by calling `$name`. Neat, right?"
+      }
+    },
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "#!/bin/bash\n\nname=\"Odunayo\"\necho \"Hello, $name!\"",
+        "language": "bash"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "header": "Conditionals: Making Decisions",
+        "text": "Scripts can make decisions based on conditions. The `if` statement is your friend here. Use it to check whether a condition is true or false, and then take action accordingly."
+      }
+    },
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "#!/bin/bash\n\nif [ \"$name\" == \"Odunayo\" ]; then\n  echo \"Welcome back, $name!\"\nelse\n  echo \"Hello, stranger!\"\nfi",
+        "language": "bash"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "header": "Loops: Automating Repeated Tasks",
+        "text": "Sometimes you need to repeat tasks multiple times. Instead of copying and pasting, loops are your best bet. The `for` and `while` loops allow you to run a block of code multiple times."
+      }
+    },
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "#!/bin/bash\n\nfor i in {1..5}; do\n  echo \"Loop number $i\"\ndone",
+        "language": "bash"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "header": "Functions: Reusable Code Blocks",
+        "text": "Functions allow you to package a block of code into a reusable component. You define a function with the `function` keyword, and then call it whenever you need that particular block of code."
+      }
+    },
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "#!/bin/bash\n\nfunction greet {\n  echo \"Hello, $1!\"\n}\n\ngreet \"Odunayo\"\ngreet \"World\"",
+        "language": "bash"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "header": "Working with Files",
+        "text": "Bash scripts excel at file management. You can create, delete, copy, or move files with a few simple commands. Need to automate your backups? Bash has got you covered!"
+      }
+    },
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "#!/bin/bash\n\ncp /path/to/source /path/to/destination\nrm /path/to/unwantedfile",
+        "language": "bash"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "header": "Scheduling Tasks with Cron Jobs",
+        "text": "The real power of bash scripting is not just running your scripts manually. You can literally schedule scripts that runs at regular intervals <em>cron jobs.</em> <br><br> You can schedule them to run at specific intervals using <em>cron jobs.</em> Imagine never having to remember to run your backups again!"
+      }
+    },
+    {
+        "content_type_id": 1,
+        "data": {
+        "header": "A high level overview of task scheduling",
+        "text": "Cron jobs are a powerful way to schedule tasks in Unix-like operating systems. They allow you to automate repetitive tasks by specifying a schedule for when your scripts should run.<br><br> Let's break down how to set up a cron job to run a backup script daily at 3 AM. But first let us breakdown what how a cronjob works"
+        }
+    },
+    {   
+      "content_type_id": 1,
+        "data": {  
+      "header": "What is a Cron Job?",
+      "text": "A cron job is a scheduled task that runs automatically at specified intervals on Unix-like operating systems."
+        }
+    },
+    {"content_type_id": 1,
+        "data": {
+      "header": "What is the Cron Service?",
+      "text": "The cron service is a daemon <em>(background service)</em> that runs in the background and checks crontab files at regular intervals <em> (typically every minute) </em> to see if any tasks need to be executed.  <br><br> This service is part of the operating system and runs independently of user sessions."
+    }},
+    {"content_type_id": 1,
+        "data": {
+      "header": "What is Crontab?",
+      "text": "Crontab is a command and a file that allows users to schedule jobs <br>scripts or commands </br> to run at specific times. Each user has their own crontab file, which stores their scheduled tasks."
+    }},
+    {"content_type_id": 1,
+        "data": {
+      "header": "How Does the Cron System Work?",
+      "text": "The cron daemon reads the crontab files, manages the scheduling of jobs, and triggers the specified commands or scripts at the designated times. <br><br> It runs as a single background process, not as individual threads for each job. When it's time to execute a job, cron starts a new process for that task."
+    }},
+    {"content_type_id": 1,
+        "data": {
+      "header": "Putting it all together",
+      "text": "Crontab stores the jobs. The cron daemon reads the crontab and handles the scheduling. <br><br> The operating system keeps cron running in the background, ensuring that your tasks are executed at the appropriate times without manual intervention. <br><br> This is an example of a cronjob schedule instructions"
+    }},
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "0 3 * * * /path/to/backupscript.sh",
+        "language": "bash"
+      }
+    },
+    {
+        "content_type_id": 1,
+        "data": {
+        "header": "Understanding the Cron Job Syntax",
+        "text": "The cron job entry `0 3 * * * /path/to/backupscript.sh` is made up of five time-and-date fields followed by the command to execute. Here’s what each part means:"
+        }
+    },
+    {
+        "content_type_id": 6,
+        "data": {
+        "code": "0 3 * * * /path/to/backupscript.sh",
+        "language": "bash"
+        }
+    },
+    {
+        "content_type_id": 1,
+        "data": {
+        "text": "[[`0`: The minute field. This means the task will run at minute 0., `3`: The hour field. This means the task will run at 3 AM., The first asterisk : The day of the month field. The asterisk means 'every day of the month'., The second asterisk: The month field. The second asterisk means 'every month'.,The last asterisk: The day of the week field. The last asterisk means 'every day of the week'.]] <br><br>So, this cron job is set to run `/path/to/backupscript.sh` at 3:00 AM every day of every month."
+        }
+    },
+    {
+        "content_type_id": 1,
+        "data": {
+        "header": "Setting Up the Cron Job",
+        "text": "To set up this cron job, follow these steps:"
+        }
+    },
+    {
+        "content_type_id": 6,
+        "data": {
+        "code": "crontab -e",
+        "language": "bash"
+        }
+    },
+    {
+        "content_type_id": 1,
+        "data": {
+        "text": "[[Open your terminal.,Edit the crontab file by typing the command above. This opens the crontab file in the default text editor.,Add the cron job to the file]]"
+        }
+    },
+  {
+    "content_type_id": 6,
+    "data": {
+      "code": "0 3 * * * /path/to/backupscript.sh",
+      "language": "bash"
+    }
+  },
+  {
+    "content_type_id": 1,
+    "data": {
+      "text": "Make sure to replace `/path/to/backupscript.sh` with the actual path to your script.<br><br>*Save and exit the editor.* In `vi` or `vim`, you would press `Esc`, type `:wq`, and then press `Enter`.\n\nYour cron job is now scheduled! It will automatically run the specified script at the time you’ve set."
+    }
+  },
+  {
+    "content_type_id": 1,
+    "data": {
+      "header": "Verifying Your Cron Job",
+      "text": "To check that your cron job has been scheduled correctly, you can list your cron jobs with:"
+    }
+  },
+  {
+    "content_type_id": 6,
+    "data": {
+      "code": "crontab -l",
+      "language": "bash"
+    }
+  },
+  {
+    "content_type_id": 1,
+    "data": {
+      "text": "This command will display all the cron jobs currently set for your user. Make sure your entry appears as expected."
+    }
+  },
+    {
+      "content_type_id": 1,
+      "data": {
+        "header": "Error Handling in Bash Scripts",
+        "text": "Scripts don't always run smoothly, but that’s okay! Bash provides ways to handle errors. Use `trap` to catch signals and `||` to run alternative commands if something goes wrong."
+      }
+    },
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "#!/bin/bash\n\ntrap \"echo 'Something went wrong!'\" ERR\n\nmkdir /root/test_directory || echo \"Failed to create directory!\"",
+        "language": "bash"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "header": "Combining Bash with Other Languages",
+        "text": "Bash scripts aren't limited to Bash commands! You can integrate other languages like Python or Perl into your scripts to handle more complex tasks. Think of Bash as the glue that holds your tools together."
+      }
+    },
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "#!/bin/bash\n\npython3 -c \"print('Hello from Python!')\"",
+        "language": "bash"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "header": "Conclusion",
+        "text": "Bash scripting is your ticket to automating repetitive tasks, managing files, and scheduling jobs. With just a little bit of code, you can streamline your workflow and make your life a whole lot easier!"
+      }
+    }
+  ]
+}
+
+
+###
+
+POST http://localhost:8000/add/
+Content-Type: application/json
+
+{
+  "blog_post_id": 3,
+  "content": [
+    {
+      "content_type_id": 1,
+      "data": {
+        "header":"Why do we need Generics",
+        "text": "Generics in TypeScript allow you to write components that work with any data type while preserving the benefits of type safety. This is a game-changer when building something like an eCommerce platform where you need consistency and flexibility across various entities. With generics, you can create a service once and reuse it across your codebase.<br><br> For instance, a service that handles product data can also handle customer data simply by switching the type. Let’s see how generics can help us build this flexibility into our eCommerce application."
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "text": "Let’s begin with a simple example to explain generics. Imagine a generic function that returns the argument passed to it. This function can handle any type of data—be it a number, string, or even a complex object.",
+        "header": "Introducing TypeScript Generics"
+      }
+    },
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "function identity<T>(arg: T): T {\n    return arg;\n}\n\nlet result1 = identity<number>(5);\nlet result2 = identity<string>('Hello');\nconsole.log(result1); // Output: 5\nconsole.log(result2); // Output: Hello",
+        "language": "typescript"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "text": "While this is a simple example, generics are incredibly powerful when applied to more complex scenarios like creating services for an eCommerce platform. For example, instead of writing a separate service to handle products, users, or orders, we can create a generic service that works for any type of data. This reduces code duplication and makes our system more scalable.",
+        "header": "Generic Services for an E-Commerce Platform"
+      }
+    },
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "class DataService<T> {\n    private data: T[] = [];\n\n    addItem(item: T): void {\n        this.data.push(item);\n    }\n\n    getItemById(index: number): T | undefined {\n        return this.data[index];\n    }\n}\n\nconst productService = new DataService<Product>();\nproductService.addItem({ id: 1, name: 'Laptop', price: 1500 });\nconsole.log(productService.getItemById(0)); // Output: { id: 1, name: 'Laptop', price: 1500 }\n\nconst userService = new DataService<User>();\nuserService.addItem({ id: 1, name: 'John Doe', email: 'john@example.com' });\nconsole.log(userService.getItemById(0)); // Output: { id: 1, name: 'John Doe', email: 'john@example.com' }",
+        "language": "typescript"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "text": "With the `DataService` class, we can now handle products, users, orders, or any other entities without rewriting code for each new data type. We simply pass the appropriate type to the service and let it handle the rest. This is the power of TypeScript generics in action, helping us write reusable, type-safe code that scales as our eCommerce platform grows.",
+        "header": "Using Generics to Scale"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "text": "Now, let’s take this one step further. What if we want to enforce certain constraints on the generic types? For example, in our eCommerce platform, we may want to ensure that all entities have an `id` field, regardless of whether they are products, users, or orders. We can enforce this using constraints in generics.",
+        "header": "Enforcing Constraints with Generics"
+      }
+    },
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "interface Identifiable {\n    id: number;\n}\n\nfunction logEntity <T extends Identifiable> (entity: T): void {\n    console.log(entity.id);\n}\n\nlogEntity({ id: 1, name: 'Laptop' }); // Output: 1\nlogEntity({ id: 2, email: 'john@example.com' }); // Output: 2",
+        "language": "typescript"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "text": "By using constraints like `Identifiable`, we can ensure that only objects with an `id` field are passed into our generic function. This provides additional safety while still allowing us to work with different types."
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "header":"Generics with arrays",
+        "text": "Let’s take a look at how we can use generics with arrays."
+      }
+    },
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "function getFirstItem<T>(items: T[]): T {\n    return items[0];\n}\n\nconst productIds = [101, 102, 103];\nconst productNames = ['Laptop', 'Phone', 'Tablet'];\nconsole.log(getFirstItem(productIds)); // Output: 101\nconsole.log(getFirstItem(productNames)); // Output: Laptop",
+        "language": "typescript"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "text": "In this example, the `getFirstItem` function works with any type of array, whether it's an array of numbers, strings, or even objects. This flexibility is one of the many benefits of using generics. Now, let's take it a step further by applying constraints to ensure that our generic types meet certain criteria."
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "header":"Applying constraints with keyof",
+        "text": "Constraints help us limit the types that can be used with our generic functions. In the example, we might want to ensure that our objects have certain properties like `id` and `name`. We can enforce this using TypeScript's `keyof` constraint, ensuring that our generic type only allows certain keys from the object."
+      }
+    },
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {\n    return obj[key];\n}\n\nconst product = { id: 1, name: 'Laptop', price: 1500 };\nconsole.log(getProperty(product, 'name')); // Output: Laptop\nconsole.log(getProperty(product, 'price')); // Output: 1500",
+        "language": "typescript"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {  
+        "text": "With the `getProperty` function, we are using `keyof` to constrain the keys that can be passed into our function. This ensures that we only access properties that exist on the object, providing extra safety and preventing errors."
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "header":"Partials, Readonly and Record",  
+        "text": "Next, let's explore how to leverage some of TypeScript’s built-in generic utility types, such as `Partial`, `Readonly`, and `Record`, to further enhance the flexibility of our code."
+      }
+    },
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "interface Product {\n    id: number;\n    name: string;\n    price: number;\n}\n\nfunction updateProduct(id: number, updates: Partial<Product>): Product {\n    const product = getProductById(id);\n    return { ...product, ...updates };\n}\n\nconst updatedProduct = updateProduct(1, { price: 1200 });\nconsole.log(updatedProduct); // Output: { id: 1, name: 'Laptop', price: 1200 }",
+        "language": "typescript"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "text": "In the `updateProduct` function, we use the `Partial` utility type to allow partial updates to a `Product`. Utility types like `Partial`, `Readonly`, and `Record` make it easy to modify how types are used throughout your application, without having to redefine them.<br><br> Finally, let’s see how we can combine generics and interfaces to further enhance our eCommerce platform. We’ll define a generic interface and implement a function that uses it."
+      }
+    },
+    {
+      "content_type_id": 6,
+      "data": {
+        "code": "interface Entity<T> {\n    id: number;\n    data: T;\n}\n\nfunction createEntity<T>(id: number, data: T): Entity<T> {\n    return { id, data };\n}\n\nconst productEntity = createEntity(1, { name: 'Laptop', price: 1500 });\nconsole.log(productEntity); // Output: { id: 1, data: { name: 'Laptop', price: 1500 } }",
+        "language": "typescript"
+      }
+    },
+    {
+      "content_type_id": 1,
+      "data": {
+        "text": "By defining a generic interface `Entity`, we ensure that our `createEntity` function can handle different types of data while maintaining type safety. This technique allows us to build reusable, flexible components that can adapt to any future changes in our application.<br><br> In conclusion, TypeScript generics give you the power to write code that is reusable, scalable, and type-safe. By mastering these concepts, you’ll be able to build more robust applications, whether you're working on an eCommerce platform or any other project that requires flexibility across multiple data types."
+      }
+    }
+  ]
+}

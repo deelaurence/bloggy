@@ -13,7 +13,7 @@
     {% for post in posts %}
     <article class="flex md:items-end flex-col md:flex-row gap-8 mb-24">
         <div class="relative border  border-b-2 bg-red-200">
-            <a href="{% url 'post' post.id %}">
+            <a href="{% url 'post' post.dash_title %}">
             <div class="h-44 md:w-64">
                 <img src="{{ post.cover_image }}" alt="{{ post.title }}" class=" object-cover object-top h-full w-full  mb-4">
             </div>
@@ -23,7 +23,7 @@
                 <a href="{% url 'posts_category' post.category.id %}" class="text-xs">• <span class="underline">{{post.category}}</span></a>
             </div>
         </div>
-        <a href="{% url 'post' post.id %}" class=" max-w-[2/3]">
+        <a href="{% url 'post' post.dash_title %}" class=" max-w-[2/3]">
             <h3 class=" text-2xl md:text-3xl font-bold">{{ post.title }}</h3>
             <p class="text-lg mt-1">{{post.summary}}</p>
         </a>

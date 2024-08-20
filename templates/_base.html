@@ -9,9 +9,10 @@
     <meta property="og:title" content="{% block og_title %}Welcome - bloggy{% endblock %}">
     <meta property="og:description" content="{% block og_description %}A brief description of your page.{% endblock %}">
     <meta property="og:image" content="{% block og_image %}https://www.yoursite.com/default-image.jpg{% endblock %}">
-    <meta property="og:url" content="{% block og_url %}https://www.yoursite.com{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}{{current_url}}{% endblock %}">
     
-    
+    <meta name="keywords" content="JavaScript, Python, Django, React, PostgreSQL, tutorials, programming">
+
 
     <!-- Preload Fonts -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" as="style" onload="this.rel='stylesheet'">
@@ -25,7 +26,7 @@
     <!-- Highlight.js CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css" rel="stylesheet">
 
-
+    
     
     <style>
         /* Font Display Optimization */
@@ -44,7 +45,6 @@
         .hljs-built_in{
             color:orange;
             font-style: italic;
-            font-family: cursive;
         }
         .hljs-number {
             color: #d4e6f8;
@@ -78,10 +78,14 @@
             background: #f1f1f2;
             background: radial-gradient(circle, rgba(255, 204, 196, 0.293) 0%, #f1f1f2 100%);
         }
-        header, .hero-banner {
+        header {
             background: #263440 !important;
         }
         
+        .hero-banner {
+            background: #263440ba !important;
+        }
+
         .glass-effect {
             backdrop-filter: blur(2px);
             -webkit-backdrop-filter: blur(2px);
@@ -97,6 +101,7 @@
 
         *{
             font-family: 'Albert sans' ;
+            scrollbar-width: thin;
         }
     </style>
 </head>

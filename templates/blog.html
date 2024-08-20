@@ -5,9 +5,33 @@
 {% block og_title %}{{blog_post.title}}{% endblock %}
 {% block og_description %}{{blog_post.summary}}{% endblock %}
 {% block og_image %}{{blog_post.cover_image}}{% endblock %}
+{% block og_iurl %}{{current_url}}{% endblock %}
 
 
 {% block content %}
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "{{ blog_post.title }}",
+      "description": "{{ blog_post.summary }}",
+      "image": "{{ blog_post.cover_image }}",
+      "author": {
+        "@type": "Person",
+        "name": "Alo Odunayo"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Bloggy",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://cdn-icons-png.flaticon.com/128/14776/14776152.png"
+        }
+      },
+      "datePublished": "{{ blog_post.created_at | date:"M d, Y" }}",
+      "dateModified": "{{ blog_post.updated_at | date:"M d, Y" }}"
+    }
+    </script>
     <div class="container mx-auto xl:px-44">
         <div class="">
             <h1 class="text-4xl font-bold mb-4">{{ blog_post.title }}</h1>
@@ -27,7 +51,7 @@
                 
                 
                 {% elif content.content_type.type == 'Image' %}
-                <div class="flex flex-col my-12 items-center overflow-hidden">
+                <div class="flex flex-col gap-4 my-12 items-center overflow-hidden">
                     <img class="w-full" src="{{ content.data.url }}" alt="{{ content.data.caption }}" >
                     <p class="text-sm text-gray-600">{{ content.data.caption }}</p>
                 </div>
@@ -38,7 +62,7 @@
                         <p class="text-sm capitalize ">{{content.data.language|safe}}</p>
                         <button id="copy-btn-{{content.order}}" class="flex gap-2 text-sm items-center" onclick="copyCode('{{ content.order }}')">Copy code <img class="h-4" src="https://cdn-icons-png.flaticon.com/128/11940/11940163.png" alt="copy"> </button>
                     </div>
-                    <pre class="p-4 text-base mb-12"><code id="codeBlock-{{content.order}}" class="language-{{ content.data.language }}">{{ content.data.code|safe }}</code></pre>
+                    <pre class="p-4 text-base mb-12"><code id="codeBlock-{{content.order}}" class="language-{{ content.data.language }}">{{ content.data.code|escape|safe }}</code></pre>
                 
                 
                 {% elif content.content_type.type == 'Quote' %}
@@ -68,22 +92,56 @@
             var urlRegexPattern = /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g;
             var backtickRegexPattern = /`([^`]+)`/g;
             var asteriskRegexPattern = /\*([^*]+)\*/g;
+            var slantRegexPattern =  /\_\_([^_]+)\_\_/g;
+            var listPattern = /\[\[([^\]]+)\]\]/g;
+            var imagePattern = /\(\(([^\]]+)\)\)/g;
 
+            
             // Replace URL links
             var newHTML = innerHTML.replace(urlRegexPattern, function(match, p1, p2) {
-                return `<a href="${p2}" target="_blank" class="underline text-blue-400 ">${p1}</a>`;
+                return `<a href="${p2}" target="_blank" class="underline">${p1}</a>`;
             });
-
+            
             // Replace text within backticks
             newHTML = newHTML.replace(backtickRegexPattern, function(match, p1) {
-                return `<span style="font-family: monospace;" class='bg-gray-300 '>${p1}</span>`;
+                return `<p
+                            style="max-width:80vw; "
+                            class='inline-block overflow-x-auto whitespace-nowrap -mb-2'>
+                            <span 
+                                class='bg-gray-300 font-mono text-base'
+                                >
+                                    ${p1}
+                                </span>
+                        </p>`;
             });
-
+            // Replace list pattern
+            var newHTML = newHTML.replace(listPattern, function(match, p1) {
+                // Split the content inside double square brackets by commas
+                const items = p1.split(',').map(item => item.trim());
+                // Build the HTML list
+                let listHTML = '<ol class="custom-ol mt-2 mb-4">';
+                    items.forEach(item => {
+                        listHTML += `<li>${item}</li>`;
+                    });
+                    listHTML += '</ol>';
+                return listHTML; // Replace the matched text with the generated list
+            });
+            var newHTML = newHTML.replace(imagePattern, function(match, p1) {
+                // Split the content inside double square brackets by commas
+                const items = p1.split(',').map(item => item.trim());
+                return `<div class="flex flex-col gap-4 my-12 items-center overflow-hidden">
+                            <img class="w-full" src="${items[0]}" alt="${items[1]}" >
+                            <p class="text-sm text-gray-600">${items[1]}</p>
+                        </div>`;
+            });
             // Replace text within asterisks
             newHTML = newHTML.replace(asteriskRegexPattern, function(match, p1) {
-                return `<strong>${p1}</strong>`;
+                return `<strong class='font-semibold'>${p1}</strong>`;
             });
-
+            // Replace text within asterisks
+            newHTML = newHTML.replace(slantRegexPattern, function(match, p1) {
+                return `<em>${p1}</em>`;
+            });
             paragraph.innerHTML = newHTML;
         });
 
